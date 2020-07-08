@@ -9,7 +9,7 @@ librosa==0.5.0
 audioread==2.1.4
 mutagen==1.39
 pydub==0.18.0
-requests==2.13.0
+requests==2.20.0
 pydot==1.2.3
 tqdm==4.11.2
 python-dotenv==0.6.3
