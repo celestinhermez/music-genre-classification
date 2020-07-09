@@ -56,3 +56,7 @@ unzip fma_small.zip
 unzip fma_medium.zip
 cd ..
 ```
+
+On MacOS, the default `unzip` command failed. Using The Unarchiver utility in Finder to unzip
+the file did solve the issue. If you run into "folder incomplete" errors, 
+you can safely ignore them.
