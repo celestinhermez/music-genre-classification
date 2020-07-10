@@ -61,3 +61,11 @@ On MacOS, the default `unzip` command failed. Using The Unarchiver utility in Fi
 the file did solve the issue. If you run into "folder incomplete" errors, 
 you can safely ignore them.
 
+## Ideas
+
+Create models with the features extracted using librosa, and find the best model there. Compare
+it to the models built using raw audio
+
+Using neural networks, but also other models (such as SVM), and compare them.
+
+Have a math section in the report?
