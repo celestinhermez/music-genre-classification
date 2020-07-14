@@ -61,11 +61,29 @@ On MacOS, the default `unzip` command failed. Using The Unarchiver utility in Fi
 the file did solve the issue. If you run into "folder incomplete" errors, 
 you can safely ignore them.
 
+## Modeling
+### Neural Networks
+
+For this project, we use TensorFlow to build neural networks. The goal is to see whether we can
+learn patterns in raw audio. This has the advantage of not requiring one to be familiar with
+feature engineering for audio data, which is a specialized field in itself.
+
+The notebook to build and extract the model is included. A few notes:
+* training was done using GPU on Google Colab. This required the use of TFRecord datasets and
+Google Cloud Storage (GCS). This part of the project re-used a lot of code from the official 
+TensorFlow documentation
+* in order to fully leverage TensorFlow, we converted mp3 files to wav files and uploaded 
+the latter to GCS. This was done in convert_mp3_wav.ipynb
+* the data uploaded to GCS, as well as the Drive mounted to the Colab, are private and
+will return an error if you try to run the code as is. The hope is that this example
+empowers you to reproduce our analysis and result with your own file structure if desired
+
+Our findings:
+
 ## Ideas
 
-Create models with the features extracted using librosa, and find the best model there. Compare
-it to the models built using raw audio
-
-Using neural networks, but also other models (such as SVM), and compare them.
-
 Have a math section in the report?
+
+Lingering NN issues
+* sometimes there is a string instead of float data for certain songs
+* shape issue
