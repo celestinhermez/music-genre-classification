@@ -57,9 +57,15 @@ unzip fma_medium.zip
 cd ..
 ```
 
-On MacOS, the default `unzip` command failed. Using The Unarchiver utility in Finder to unzip
-the file did solve the issue. If you run into "folder incomplete" errors, 
-you can safely ignore them.
+In case of issues with unzipping the files:
+* Windows: use 7-zip
+* Mac:
+
+```
+brew install p7zip
+cd data
+7z x fma_small.zip
+```
 
 ## Modeling
 ### Neural Networks
@@ -79,6 +85,7 @@ will return an error if you try to run the code as is. The hope is that this exa
 empowers you to reproduce our analysis and result with your own file structure if desired
 
 Our findings:
+* two dense layers (100, 20 with dropout) is the current best option
 
 ## Ideas
 
