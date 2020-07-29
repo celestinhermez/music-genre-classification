@@ -7,19 +7,24 @@ The goal is to classify raw music audio into genres.
 
 We leverage the [Free Music Archive](https://github.com/mdeff/fma) to get data for our project.
 
-@inproceedings{fma_dataset,
-  title = {{FMA}: A Dataset for Music Analysis},
-  author = {Defferrard, Micha\"el and Benzi, Kirell and Vandergheynst, Pierre and Bresson, Xavier},
-  booktitle = {18th International Society for Music Information Retrieval Conference (ISMIR)},
-  year = {2017},
-  archiveprefix = {arXiv},
-  eprint = {1612.01840},
-  url = {https://arxiv.org/abs/1612.01840},
-} 
-
-TODO: add more data description
+This is a wide repository of audio segments with relevant metadata, 
+which was originally collected for International Society for Music Information Retrieval Conference (ISMIR) in 2017.
+We focus on the small subset of the data. It contains 8,000 audio segments, each 30s long. There are 8 distinct genres:  
+* Hip-Hop
+* Pop
+* Folk
+* Experimental
+* Rock
+* International
+* Electronic
+* Instrumental
+\end{itemize}
+Each genre comes with 1,000 representative audio segments. 
+With the sample rate of 44,100, this means there are more than 1 million data points for each example, 
+creating more than 10<sup>9</sup> data points total.
 
 ## Usage
+### Data Download
 
 1. Clone the directory
 
@@ -48,12 +53,10 @@ mkdir data
 cd data
 curl -O https://os.unil.cloud.switch.ch/fma/fma_metadata.zip
 curl -O https://os.unil.cloud.switch.ch/fma/fma_small.zip
-curl -O https://os.unil.cloud.switch.ch/fma/fma_medium.zip
 echo "f0df49ffe5f2a6008d7dc83c6915b31835dfe733  fma_metadata.zip" | sha1sum -c -
 echo "ade154f733639d52e35e32f5593efe5be76c6d70  fma_small.zip"    | sha1sum -c -
-echo "c67b69ea232021025fca9231fc1c7c1a063ab50b  fma_medium.zip"   | sha1sum -c -unzip fma_metadata.zip
+unzip fma_metadata.zip
 unzip fma_small.zip
-unzip fma_medium.zip
 cd ..
 ```
 
@@ -67,12 +70,31 @@ cd data
 7z x fma_small.zip
 ```
 
-## Modeling
-### Neural Networks
+### Feature Extraction
+
+Run the notebook which can be found at `data_preprocessing/create_audio_features.ipynb`
+
+### Exploratory Data Analysis
+
+Some graphs and general exploratory data analysis can be found at `model_development/exploratory_data_analysis.ipynb`
+
+### Modeling
+
+We consider two broad approches: standard machine learning, and deep learning. In addition,
+we work both with raw audio and with features informed from music theory research.
+
+#### Standard Machine Learning
+
+We can compare various standard machine learning methods and see how they perform on this 
+classification task. In order to do so, we work with extracted features, either chosen by us
+or from the provided metadata.
+
+#### Deep Learning
 
 For this project, we use TensorFlow to build neural networks. The goal is to see whether we can
 learn patterns in raw audio. This has the advantage of not requiring one to be familiar with
-feature engineering for audio data, which is a specialized field in itself.
+feature engineering for audio data, which is a specialized field in itself. We also see whether
+models built from extracted features perform better
 
 The notebook to build and extract the model is included. A few notes:
 * training was done using GPU on Google Colab. This required the use of TFRecord datasets and
@@ -85,12 +107,26 @@ will return an error if you try to run the code as is. The hope is that this exa
 empowers you to reproduce our analysis and result with your own file structure if desired
 
 Our findings:
-* two dense layers (100, 20 with dropout) is the current best option
+* the models built from raw audio suffer from overfitting
+* treating the Mel spectrogram as an image, and applying transfer learning on it delivers
+the best testing accuracy (~40%)
 
-## Ideas
+## Areas for Future Work
 
-Have a math section in the report?
+The identification of overfitting as a major issue opens several areas of future work:
+* reduce the dimensionality of the data: 
+techniques such as PCA could be used to combine extracted features together 
+and limit the size of the feature vectors for each example
+* increase the size of the training data: the data source makes available
+ larger subsets of the data. We limited our exploration to 
+ less than 10% of the entire dataset. Should more computational resources be available, 
+ or dimensionality of the data be successfully reduced, 
+ we could consider using the full dataset. 
+ This would most likely enable our methods to isolate more patterns 
+ and greatly improve performance
+*formalize the search for optimal architectures: 
+using tensorboard or other cross-validation methods 
+could help further tune the architectures of the neural networks created.
+ This is a problem which is known to be hard, and we believe there is still 
+ room for improvement there
 
-Lingering NN issues
-* sometimes there is a string instead of float data for certain songs
-* shape issue
