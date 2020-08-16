@@ -2,6 +2,7 @@
 
 Final project for ISYE-6740 (Computational Data Analytics at Georgia Institute of Technology). 
 The goal is to classify raw music audio into genres.
+You can find a detailed article on this project on [Medium](https://towardsdatascience.com/music-genre-classification-with-tensorflow-3de38f0d4dbb)
 
 ## Data
 
@@ -130,3 +131,8 @@ could help further tune the architectures of the neural networks created.
  This is a problem which is known to be hard, and we believe there is still 
  room for improvement there
 
+## Acknowledgements
+
+We are very grateful to TensorFlow's tutorials, Google Colab example notebooks and Google's
+developer codelabs for snippets of useful code used in this repository. Sources are attributed
+where necessary.
