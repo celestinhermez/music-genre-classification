@@ -17,7 +17,7 @@ tqdm==4.11.2
 python-dotenv==0.6.3
 
 # Dependencies of the above.
-certifi==2017.11.5
+certifi==2022.12.7
 click==6.7
 cycler==0.10.0
 #Cython==0.25.2
